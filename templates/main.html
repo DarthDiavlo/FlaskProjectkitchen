@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Привет, {{username}}!</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f3f3f3;
+        }
+        h1 {
+            text-align: center;
+            padding: 20px;
+            background-color: #4CAF50;
+            color: white;
+        }
+        /* Стили для карточки */
+        .recipe-card {
+            border: 1px solid #ccc;
+            padding: 15px; /* Уменьшаем отступы внутри карточки */
+            margin: 10px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+            width: 80%; /* Уменьшаем ширину карточки */
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .recipe-title {
+            font-size: 20px; /* Уменьшаем размер шрифта */
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .recipe-tags {
+            font-style: italic;
+            color: #666;
+            margin-bottom: 10px;
+        }
+        .recipe-ingredients {
+            margin-bottom: 10px;
+        }
+        .recipe-description {
+            margin-bottom: 10px;
+        }
+        .recipe-author {
+            font-size: 14px;
+            color: #888;
+        }
+        .button-container {
+            display: flex;
+            justify-content: space-around;
+            margin: 20px 0;
+        }
+        .button, .myrecipe, .search {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 20px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            outline: none;
+            color: #fff;
+            background-color: #4CAF50;
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 9px #999;
+        }
+        .button:hover, .myrecipe:hover, .search:hover {background-color: #3e8e41}
+        .button:active, .myrecipe:active, .search:active {
+            background-color: #3e8e41;
+            box-shadow: 0 5px #666;
+            transform: translateY(4px);
+        }
+        .search-input {
+            padding: 10px;
+            font-size: 20px;
+            border-radius: 15px;
+            border: none;
+            margin-right: 10px;
+        }
+        .logout {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 20px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            outline: none;
+            color: #fff;
+            background-color: #4CAF50;
+            border: none;
+            border-radius: 15px;
+            position: absolute;
+            top: 30px;
+            right: 20px;
+        }
+        .logout:hover {background-color: #3e8e41}
+        .logout:active {
+            background-color: #3e8e41;
+            box-shadow: 0 5px #666;
+            transform: translateY(4px);
+        }
+    </style>
+</head>
+<body>
+    <h1>Привет, {{username}}!</h1>
+    <form action="/" method="post">
+        <input class="logout" name="logout" type="submit" value="Выход">
+    </form>
+    <div class="button-container">
+        <form action="/add_recipe" method="post">
+            <input class="button" name="add" type="submit" value="Добавить рецепт">
+        </form>
+        <form action="/search_tag" method="post">
+            <input class="search-input" type="text" name="tag" placeholder="Поиск по тегу">
+            <input class="search" type="submit" value="Поиск">
+        </form>
+        <form action="/my_recipe" method="post">
+            <input class="myrecipe" name="myrecipe" type="submit" value="Мои рецепты">
+        </form>
+    </div>
+    {% for recipe in recipes %}
+        <div class="recipe-card">
+            <div class="recipe-title">{{recipe.name}}</div>
+            <div class="recipe-tags">Теги: {{recipe.tags}}</div>
+            <div class="recipe-ingredients">
+                <h3>Ингредиенты:</h3>
+                <p>{{recipe.ingredients}}</p>
+            </div>
+            <div class="recipe-description">
+                <h3>Описание:</h3>
+                <p>{{recipe.description}}</p>
+            </div>
+            <div class="recipe-author">Автор: {{recipe.author}}</div>
+            <div class="recipe-button">
+                <button type="button" class="btn btn-primary">Удалить(не функционально со стороны клиента)</button>
+            </div>
+        </div>
+    {% endfor %}
+</body>
+</html>
